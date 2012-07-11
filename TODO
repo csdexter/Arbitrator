@@ -1,0 +1,4 @@
+- add examples when code complete
+- implement I2C arbitration
+- double check that switching SPI configurations has no secondary side effects
+- cache last client and don't reconfigure the bus if they call us again

@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map for Arbitrator
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+TSPIArbitrator	KEYWORD1
+TI2CArbitrator	KEYWORD1
+TBusToplogy	KEYWORD1
+TSPIConfiguration	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+end	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+ARBITRATOR_MODE_MASTER	LITERAL1
+ARBITRATOR_MODE_SLAVE	LITERAL1

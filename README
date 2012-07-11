@@ -1,0 +1,28 @@
+Arduino Bus Arbitrator Library
+
+Written by Radu - Eosif Mihailescu <radu.mihailescu@linux360.ro> 2012-07-12
+
+This library is for when you have multiple devices connected to the SPI bus,
+presumably using different speeds and/or signalling modes and want to make sure
+they won't step on their toes.
+
+To the furthest extent that this is legally possible, the fork maintained by 
+Radu - Eosif Mihailescu and published here https://github.com/csdexter/Arbitrator
+is hereby released under the LGPL version 3.
+To the furthest extent that this is legally enforceable, the copyright remains
+with the authors listed above.
+
+See the example sketches to learn how to use the library in your code.
+
+NOTES:
+ * Connect all SPI devices in parallel. Daisy chain connection is obviously
+   possible only for (groups of) devices that share the same signalling
+   parameters. Please note SS (selection) management is out of the scope of this
+   library.
+ * Define the bus topology (each client's configuration) and call begin().
+ * Notify each [software] client of their client index in the topology array.
+ * Specify your client index when calling the arbitrator from your [software]
+   client.
+
+For general questions and updates on this library please contact the fork
+maintainer at <radu.mihailescu@linux360.ro>.
