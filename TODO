@@ -1,4 +1,3 @@
 - add examples when code complete
-- implement I2C arbitration
-- double check that switching SPI configurations has no secondary side effects
-- cache last client and don't reconfigure the bus if they call us again
+- really need to rewrite I2C in order to have a decent interface and behaviour
+- rewriting/augmenting SPI would be nice too

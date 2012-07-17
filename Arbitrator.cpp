@@ -19,6 +19,7 @@
 
 void TSPIArbitrator::begin(const TBusTopology *topology, const byte length) {
   TBusArbitrator::begin(topology, length);
+  _lastclient = length;
   SPI.begin();
 };
 
@@ -33,13 +34,57 @@ byte TSPIArbitrator::transfer(byte client, byte data) {
 };
 
 void TSPIArbitrator::switchToClient(byte client) {
-  TSPIConfiguration *config =
-    (TSPIConfiguration*)_topology[client].configuration;
+  if(client != _lastclient) {
+    TSPIConfiguration *config =
+      (TSPIConfiguration*)_topology[client].configuration;
 
-  SPI.setBitOrder(config->byteOrder);
-  SPI.setDataMode(config->dataMode);
-  SPI.setClockDivider(config->clockDivider);
+    SPI.setBitOrder(config->byteOrder);
+    SPI.setDataMode(config->dataMode);
+    SPI.setClockDivider(config->clockDivider);
+    
+    _lastclient = client;
+  };
 };
 
-const TSPIConfiguration a = { MSBFIRST, SPI_CLOCK_DIV8, SPI_MODE0 };
-const TBusTopology b = { ARBITRATOR_MODE_MASTER, 1, (byte*)&a };
+void TI2CArbitrator::requestFrom(byte client, byte address, byte size,
+                                 boolean stop) {
+  Wire.requestFrom(address, size, stop);
+};
+
+void TI2CArbitrator::beginTransmission(byte client, byte address) {
+  Wire.beginTransmission(address);
+};
+    
+byte TI2CArbitrator::endTransmission(byte client, boolean stop) {
+  return Wire.endTransmission(stop);
+};
+
+byte TI2CArbitrator::write(byte client, byte value) {
+  return Wire.write(value);
+};
+
+byte TI2CArbitrator::write(byte client, const char *string) {
+  return Wire.write(string);
+};
+    
+byte TI2CArbitrator::write(byte client, const byte *data, word length) {
+  return Wire.write(data, length);
+};
+
+word TI2CArbitrator::available(byte client) {
+  return Wire.available();
+};
+    
+byte TI2CArbitrator::read(byte client) {
+  return Wire.read();
+};
+
+void TI2CArbitrator::begin(const TBusTopology *topology, const byte length) {
+  TBusArbitrator::begin(topology, length);
+  
+  Wire.begin();
+};
+
+void TI2CArbitrator::end() {
+  return;
+};

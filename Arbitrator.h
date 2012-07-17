@@ -65,6 +65,7 @@ class TSPIArbitrator: public TBusArbitrator {
     boolean isBusy() { return false; };
 
   private:
+    byte _lastclient;
     void switchToClient(byte client);
 };
 
@@ -76,16 +77,17 @@ class TI2CArbitrator: public TBusArbitrator {
     byte endTransmission(byte client, boolean stop = true);
     byte write(byte client, byte value);
     byte write(byte client, const char *string);
-    byte write(byte client, const void *data, word length);
+    byte write(byte client, const byte *data, word length);
     word available(byte client);
     byte read(byte client);
-    void onReceive(byte client, void (*handler)(word));
-    void onRequest(byte client, void (*handler)(void));
     void begin(const TBusTopology *topology, const byte length);
-    void end() = 0;
-    boolean isBusy();
+    void end();
+    
+    /* I2C backend is blocking */
+    boolean isBusy() { return false; };
+
   private:
-    void switchToClient(byte client);
+    void switchToClient(byte client) { return; };
 };
 
 #endif
